@@ -4,9 +4,7 @@
   "license": "MIT",
   "description": "Provides framework for query behaviour.",
   "keywords": [
-    "data types",
-    "database",
-    "storage"
+    "query"
   ],
   "homepage": "https://github.com/xylemical/query",
   "autoload": {
