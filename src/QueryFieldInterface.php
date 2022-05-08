@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace Xylemical\Query;
 
 /**
- * Provides functionality for grouping query items.
+ * Provides functionality for query fields.
  */
-interface QueryGroupInterface {
+interface QueryFieldInterface {
 
   /**
-   * QueryGroupInterface constructor.
+   * QueryFieldInterface constructor.
    *
    * @param string $field
    *   The field.
-   * @param string $operation
-   *   The operation.
+   * @param string $grouping
+   *   The grouping operation.
    */
-  public function __construct(string $field, string $operation);
+  public function __construct(string $field, string $grouping = '');
 
   /**
    * Get the field.
@@ -33,6 +33,6 @@ interface QueryGroupInterface {
    * @return string
    *   The operation.
    */
-  public function getOperation(): string;
+  public function getGrouping(): string;
 
 }

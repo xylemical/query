@@ -38,11 +38,11 @@ class Query implements QueryInterface {
   protected QuerySortFactoryInterface $sortFactory;
 
   /**
-   * The group factory.
+   * The field factory.
    *
-   * @var \Xylemical\Query\QueryGroupFactoryInterface
+   * @var \Xylemical\Query\QueryFieldFactoryInterface
    */
-  protected QueryGroupFactoryInterface $groupFactory;
+  protected QueryFieldFactoryInterface $fieldFactory;
 
   /**
    * The range factory.
@@ -66,11 +66,11 @@ class Query implements QueryInterface {
   protected array $sorts = [];
 
   /**
-   * The group conditions.
+   * The field conditions.
    *
-   * @var \Xylemical\Query\QueryGroupInterface[]
+   * @var \Xylemical\Query\QueryFieldInterface[]
    */
-  protected array $groups = [];
+  protected array $fields = [];
 
   /**
    * The offset.
@@ -90,17 +90,17 @@ class Query implements QueryInterface {
    *   The condition factory.
    * @param \Xylemical\Query\QuerySortFactoryInterface $sortFactory
    *   The sort factory.
-   * @param \Xylemical\Query\QueryGroupFactoryInterface $groupFactory
-   *   The group factory.
+   * @param \Xylemical\Query\QueryFieldFactoryInterface $fieldFactory
+   *   The field factory.
    * @param \Xylemical\Query\QueryRangeFactoryInterface $rangeFactory
    *   The range factory.
    */
-  public function __construct(QuerySourceInterface $source, mixed $target, QueryConditionFactoryInterface $conditionFactory, QuerySortFactoryInterface $sortFactory, QueryGroupFactoryInterface $groupFactory, QueryRangeFactoryInterface $rangeFactory) {
+  public function __construct(QuerySourceInterface $source, mixed $target, QueryConditionFactoryInterface $conditionFactory, QuerySortFactoryInterface $sortFactory, QueryFieldFactoryInterface $fieldFactory, QueryRangeFactoryInterface $rangeFactory) {
     $this->source = $source;
     $this->target = $target;
     $this->conditionFactory = $conditionFactory;
     $this->sortFactory = $sortFactory;
-    $this->groupFactory = $groupFactory;
+    $this->fieldFactory = $fieldFactory;
     $this->rangeFactory = $rangeFactory;
   }
 
@@ -215,31 +215,31 @@ class Query implements QueryInterface {
   /**
    * {@inheritdoc}
    */
-  public function getGroupFactory(): QueryGroupFactoryInterface {
-    return $this->groupFactory;
+  public function getFieldFactory(): QueryFieldFactoryInterface {
+    return $this->fieldFactory;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getGroups(): array {
-    return $this->groups;
+  public function getFields(): array {
+    return $this->fields;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function setGroups(array $groups): static {
-    $this->groups = [];
-    return $this->addGroups($groups);
+  public function setFields(array $fields): static {
+    $this->fields = [];
+    return $this->addFields($fields);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function addGroups(array $groups): static {
-    foreach ($groups as $group) {
-      $this->addGroup($group);
+  public function addFields(array $fields): static {
+    foreach ($fields as $field) {
+      $this->addField($field);
     }
     return $this;
   }
@@ -247,16 +247,24 @@ class Query implements QueryInterface {
   /**
    * {@inheritdoc}
    */
-  public function addGroup(QueryGroupInterface $group): static {
-    $this->groups[] = $group;
+  public function addField(QueryFieldInterface $field): static {
+    $this->fields[] = $field;
     return $this;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function group(string $path, string $operation): static {
-    $this->addGroup($this->groupFactory->create($path, $operation));
+  public function group(string $field, string $grouping): static {
+    $this->addField($this->fieldFactory->create($field, $grouping));
+    return $this;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function field(string $field): static {
+    $this->addField($this->fieldFactory->create($field));
     return $this;
   }
 

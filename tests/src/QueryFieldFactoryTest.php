@@ -7,18 +7,18 @@ namespace Xylemical\Query;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests \Xylemical\Query\QueryGroupFactory.
+ * Tests \Xylemical\Query\QueryFieldFactory.
  */
-class QueryGroupFactoryTest extends TestCase {
+class QueryFieldFactoryTest extends TestCase {
 
   /**
    * Tests sanity.
    */
   public function testSanity(): void {
-    $factory = new QueryGroupFactory();
+    $factory = new QueryFieldFactory();
     $group = $factory->create('foo.bar', 'sum');
     $this->assertEquals('foo.bar', $group->getField());
-    $this->assertEquals('SUM', $group->getOperation());
+    $this->assertEquals('SUM', $group->getGrouping());
   }
 
 }

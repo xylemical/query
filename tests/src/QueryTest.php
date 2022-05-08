@@ -21,7 +21,7 @@ class QueryTest extends TestCase {
   public function testSanity(): void {
     $conditionFactory = new QueryConditionFactory();
     $sortFactory = new QuerySortFactory();
-    $groupFactory = new QueryGroupFactory();
+    $groupFactory = new QueryFieldFactory();
     $rangeFactory = new QueryRangeFactory();
 
     $source = $this->prophesize(QuerySourceInterface::class);
@@ -33,9 +33,9 @@ class QueryTest extends TestCase {
     $this->assertSame($source, $query->getSource());
     $this->assertSame($conditionFactory, $query->getConditionFactory());
     $this->assertSame($sortFactory, $query->getSortFactory());
-    $this->assertSame($groupFactory, $query->getGroupFactory());
+    $this->assertSame($groupFactory, $query->getFieldFactory());
     $this->assertEquals([], $query->getConditions());
-    $this->assertEquals([], $query->getGroups());
+    $this->assertEquals([], $query->getFields());
     $this->assertEquals([], $query->getSorts());
     $this->assertNull($query->getRange());
 
@@ -51,11 +51,14 @@ class QueryTest extends TestCase {
     $query->setSorts([])->sort('foo.bar', 'add');
     $this->assertEquals($sorts, $query->getSorts());
 
-    $groups = [new QueryGroup('foo.bar', 'add')];
-    $query->setGroups($groups);
-    $this->assertEquals($groups, $query->getGroups());
-    $query->setGroups([])->group('foo.bar', 'add');
-    $this->assertEquals($groups, $query->getGroups());
+    $groups = [new QueryField('foo.bar', 'add')];
+    $query->setFields($groups);
+    $this->assertEquals($groups, $query->getFields());
+    $query->setFields([])->group('foo.bar', 'add');
+    $this->assertEquals($groups, $query->getFields());
+    $fields = [new QueryField('foo.bar', '')];
+    $query->setFields([])->field('foo.bar');
+    $this->assertEquals($fields, $query->getFields());
 
     $query->range(10, 0);
     $this->assertNotNull($query->getRange());
@@ -73,7 +76,7 @@ class QueryTest extends TestCase {
   public function testExecute(): void {
     $conditionFactory = new QueryConditionFactory();
     $sortFactory = new QuerySortFactory();
-    $groupFactory = new QueryGroupFactory();
+    $groupFactory = new QueryFieldFactory();
     $rangeFactory = new QueryRangeFactory();
 
     $source = $this->prophesize(QuerySourceInterface::class);

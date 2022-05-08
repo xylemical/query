@@ -26,12 +26,12 @@ interface QueryFactoryInterface {
   public function getSortFactory(): QuerySortFactoryInterface;
 
   /**
-   * Get the query group factory.
+   * Get the query field factory.
    *
-   * @return \Xylemical\Query\QueryGroupFactoryInterface
+   * @return \Xylemical\Query\QueryFieldFactoryInterface
    *   The factory.
    */
-  public function getGroupFactory(): QueryGroupFactoryInterface;
+  public function getFieldFactory(): QueryFieldFactoryInterface;
 
   /**
    * Get the query range factory.

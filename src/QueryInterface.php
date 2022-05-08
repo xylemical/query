@@ -144,62 +144,72 @@ interface QueryInterface {
   public function sort(string $path, string $operation): static;
 
   /**
-   * Get the group factory.
+   * Get the field factory.
    *
-   * @return \Xylemical\Query\QueryGroupFactoryInterface
+   * @return \Xylemical\Query\QueryFieldFactoryInterface
    *   The factory.
    */
-  public function getGroupFactory(): QueryGroupFactoryInterface;
+  public function getFieldFactory(): QueryFieldFactoryInterface;
 
   /**
-   * Get the query groups.
+   * Get the query fields.
    *
-   * @return \Xylemical\Query\QueryGroupInterface[]
-   *   The query group conditions.
+   * @return \Xylemical\Query\QueryFieldInterface[]
+   *   The query field conditions.
    */
-  public function getGroups(): array;
+  public function getFields(): array;
 
   /**
-   * Set the query group conditions.
+   * Set the query field conditions.
    *
-   * @param \Xylemical\Query\QueryGroupInterface[] $groups
-   *   The groups.
+   * @param \Xylemical\Query\QueryFieldInterface[] $fields
+   *   The fields.
    *
    * @return $this
    */
-  public function setGroups(array $groups): static;
+  public function setFields(array $fields): static;
 
   /**
-   * Add multiple query groups.
+   * Add multiple query field.
    *
-   * @param \Xylemical\Query\QueryGroupInterface[] $groups
-   *   The query groups.
+   * @param \Xylemical\Query\QueryFieldInterface[] $fields
+   *   The query fields.
    *
    * @return $this
    */
-  public function addGroups(array $groups): static;
+  public function addFields(array $fields): static;
 
   /**
-   * Add a query group.
+   * Add a query field.
    *
-   * @param \Xylemical\Query\QueryGroupInterface $group
-   *   The group.
+   * @param \Xylemical\Query\QueryFieldInterface $field
+   *   The field.
    *
    * @return $this
    */
-  public function addGroup(QueryGroupInterface $group): static;
+  public function addField(QueryFieldInterface $field): static;
 
   /**
-   * Shortcut method for adding a query group.
+   * Shortcut method for adding a query field with grouping.
    *
-   * @param string $path
-   *   The path.
-   * @param string $operation
-   *   The operation.
+   * @param string $field
+   *   The field.
+   * @param string $grouping
+   *   The group operation.
    *
    * @return $this
    */
-  public function group(string $path, string $operation): static;
+  public function group(string $field, string $grouping): static;
+
+  /**
+   * Shortcut method for adding a query field.
+   *
+   * @param string $field
+   *   The field.
+   *
+   * @return $this
+   */
+  public function field(string $field): static;
 
   /**
    * Get query range factory.

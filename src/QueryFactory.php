@@ -24,11 +24,11 @@ class QueryFactory implements QueryFactoryInterface {
   protected QuerySortFactoryInterface $sortFactory;
 
   /**
-   * The query group factory.
+   * The query field factory.
    *
-   * @var \Xylemical\Query\QueryGroupFactoryInterface
+   * @var \Xylemical\Query\QueryFieldFactoryInterface
    */
-  protected QueryGroupFactoryInterface $groupFactory;
+  protected QueryFieldFactoryInterface $fieldFactory;
 
   /**
    * The query range factory.
@@ -44,15 +44,15 @@ class QueryFactory implements QueryFactoryInterface {
    *   The condition factory.
    * @param \Xylemical\Query\QuerySortFactoryInterface $sortFactory
    *   The sort factory.
-   * @param \Xylemical\Query\QueryGroupFactoryInterface $groupFactory
-   *   The group factory.
+   * @param \Xylemical\Query\QueryFieldFactoryInterface $fieldFactory
+   *   The field factory.
    * @param \Xylemical\Query\QueryRangeFactoryInterface $rangeFactory
    *   The range factory.
    */
-  public function __construct(QueryConditionFactoryInterface $conditionFactory, QuerySortFactoryInterface $sortFactory, QueryGroupFactoryInterface $groupFactory, QueryRangeFactoryInterface $rangeFactory) {
+  public function __construct(QueryConditionFactoryInterface $conditionFactory, QuerySortFactoryInterface $sortFactory, QueryFieldFactoryInterface $fieldFactory, QueryRangeFactoryInterface $rangeFactory) {
     $this->conditionFactory = $conditionFactory;
     $this->sortFactory = $sortFactory;
-    $this->groupFactory = $groupFactory;
+    $this->fieldFactory = $fieldFactory;
     $this->rangeFactory = $rangeFactory;
   }
 
@@ -73,8 +73,8 @@ class QueryFactory implements QueryFactoryInterface {
   /**
    * {@inheritdoc}
    */
-  public function getGroupFactory(): QueryGroupFactoryInterface {
-    return $this->groupFactory;
+  public function getFieldFactory(): QueryFieldFactoryInterface {
+    return $this->fieldFactory;
   }
 
   /**
@@ -88,7 +88,7 @@ class QueryFactory implements QueryFactoryInterface {
    * {@inheritdoc}
    */
   public function create(QuerySourceInterface $source, mixed $target): QueryInterface {
-    return new Query($source, $target, $this->conditionFactory, $this->sortFactory, $this->groupFactory, $this->rangeFactory);
+    return new Query($source, $target, $this->conditionFactory, $this->sortFactory, $this->fieldFactory, $this->rangeFactory);
   }
 
 }

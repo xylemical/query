@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Xylemical\Query;
 
 /**
- * A generic query group.
+ * A generic query field.
  */
-class QueryGroup implements QueryGroupInterface {
+class QueryField implements QueryFieldInterface {
 
   /**
    * The field.
@@ -17,18 +17,18 @@ class QueryGroup implements QueryGroupInterface {
   protected string $field;
 
   /**
-   * The operation.
+   * The grouping.
    *
    * @var string
    */
-  protected string $operation;
+  protected string $grouping;
 
   /**
    * {@inheritdoc}
    */
-  public function __construct(string $field, string $operation) {
+  public function __construct(string $field, string $grouping = '') {
     $this->field = $field;
-    $this->operation = strtoupper($operation);
+    $this->grouping = strtoupper($grouping);
   }
 
   /**
@@ -41,8 +41,8 @@ class QueryGroup implements QueryGroupInterface {
   /**
    * {@inheritdoc}
    */
-  public function getOperation(): string {
-    return $this->operation;
+  public function getGrouping(): string {
+    return $this->grouping;
   }
 
 }

@@ -7,17 +7,17 @@ namespace Xylemical\Query;
 use PHPUnit\Framework\TestCase;
 
 /**
- * Tests \Xylemical\Storage\Query\QueryGroup.
+ * Tests \Xylemical\Storage\Query\QueryField.
  */
-class QueryGroupTest extends TestCase {
+class QueryFieldTest extends TestCase {
 
   /**
    * Tests sanity.
    */
   public function testSanity(): void {
-    $group = new QueryGroup('foo.bar', 'SUM');
+    $group = new QueryField('foo.bar', 'SUM');
     $this->assertEquals('foo.bar', $group->getField());
-    $this->assertEquals('SUM', $group->getOperation());
+    $this->assertEquals('SUM', $group->getGrouping());
   }
 
 }

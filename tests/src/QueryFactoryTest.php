@@ -17,7 +17,7 @@ class QueryFactoryTest extends TestCase {
   public function testSanity(): void {
     $conditionFactory = $this->getMockBuilder(QueryConditionFactoryInterface::class)->getMock();
     $sortFactory = $this->getMockBuilder(QuerySortFactoryInterface::class)->getMock();
-    $groupFactory = $this->getMockBuilder(QueryGroupFactoryInterface::class)->getMock();
+    $groupFactory = $this->getMockBuilder(QueryFieldFactoryInterface::class)->getMock();
     $rangeFactory = $this->getMockBuilder(QueryRangeFactoryInterface::class)->getMock();
     $source = $this->getMockBuilder(QuerySourceInterface::class)->getMock();
 
@@ -25,12 +25,12 @@ class QueryFactoryTest extends TestCase {
     $query = $factory->create($source, 'test');
     $this->assertSame($conditionFactory, $factory->getConditionFactory());
     $this->assertSame($sortFactory, $factory->getSortFactory());
-    $this->assertSame($groupFactory, $factory->getGroupFactory());
+    $this->assertSame($groupFactory, $factory->getFieldFactory());
     $this->assertSame($rangeFactory, $factory->getRangeFactory());
     $this->assertSame($source, $query->getSource());
     $this->assertSame($conditionFactory, $query->getConditionFactory());
     $this->assertSame($sortFactory, $query->getSortFactory());
-    $this->assertSame($groupFactory, $query->getGroupFactory());
+    $this->assertSame($groupFactory, $query->getFieldFactory());
     $this->assertSame($rangeFactory, $query->getRangeFactory());
   }
 
